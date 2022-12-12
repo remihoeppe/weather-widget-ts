@@ -3,54 +3,52 @@ import { celsiusToFahrenheit } from "./../../services/tempUtils";
 import { StyledWidget } from "./../styles/WeatherWidget.styles";
 
 interface WeatherWidgetProps {
-    currentWeather: {
+    weatherData: {
         weather: any;
         main: any;
         wind: any;
     };
-    currentWindDisplay: boolean;
-    currentTemp: string;
-    currentWidgetTitle: string;
-    userLocation: {
+    isWindOn: boolean;
+    tempUnit: string;
+    widgetTitle: string;
+    location: {
         name: string;
     };
 }
 
 const NewWeatherWidget = ({
-    currentWeather,
-    userLocation,
-    currentWidgetTitle,
-    currentTemp,
-    currentWindDisplay,
+    weatherData,
+    location,
+    widgetTitle,
+    tempUnit,
+    isWindOn,
 }: WeatherWidgetProps) => {
     const weatherIconUrl = `http://openweathermap.org/img/wn/${
-        currentWeather?.weather?.at(0).icon
+        weatherData?.weather?.at(0).icon
     }@2x.png`;
 
     return (
         <StyledWidget>
-            <h2>{currentWidgetTitle ? currentWidgetTitle : "Widget Title"}</h2>
+            <h2>{widgetTitle ? widgetTitle : "Widget Title"}</h2>
 
             <div>
                 <img src={weatherIconUrl} alt="" />
                 <div className="weather-info">
-                    <h4>{userLocation?.name}</h4>
+                    <h4>{location?.name}</h4>
                     <h3>
-                        {currentTemp === "C"
-                            ? Math.round(currentWeather?.main?.temp)
+                        {tempUnit === "C"
+                            ? Math.round(weatherData?.main?.temp)
                             : Math.round(
-                                  celsiusToFahrenheit(
-                                      currentWeather?.main?.temp,
-                                  ),
+                                  celsiusToFahrenheit(weatherData?.main?.temp),
                               )}
-                        °{currentTemp}
+                        °{tempUnit}
                     </h3>
-                    {currentWindDisplay ? (
+                    {isWindOn ? (
                         <p>
                             <span>Wind</span>
                             {`\v${degToCompass(
-                                currentWeather?.wind?.deg,
-                            )} ${mpsToKph(currentWeather?.wind?.speed)}km/h`}
+                                weatherData?.wind?.deg,
+                            )} ${mpsToKph(weatherData?.wind?.speed)}km/h`}
                         </p>
                     ) : (
                         ""

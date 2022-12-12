@@ -62,17 +62,12 @@ const WeatherPage = () => {
 
     const [userLocation, setUserLocation] = useState<any>();
     const [currentWeather, setCurrentWeather] = useState<any | null>();
-    const [iconUrl, setIconUrl] = useState<string>("01n");
 
     const getLocationData = async (): Promise<void> => {
         setUserLocation(await getLocationInfo());
     };
 
     const getWeatherData = async (): Promise<void> => {
-        console.log(
-            "userLocation before getCurrentweather is called:",
-            userLocation,
-        );
         setCurrentWeather(
             await getCurrentWeather(userLocation?.lat, userLocation?.lon),
         );
