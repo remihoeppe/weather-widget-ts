@@ -15,6 +15,7 @@ const WeatherEditor = () => {
         (state: any) => state.titleTextChange.value,
     );
     const currentTemp = useSelector((state: any) => state.tempChange.value);
+    console.log(useSelector);
     const currentWindDisplay = useSelector(
         (state: any) => state.windChange.value,
     );

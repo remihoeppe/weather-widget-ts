@@ -5,18 +5,13 @@ import { theme } from "./components/styles/Theme";
 
 import { StyledContainer } from "./components/styles/Container.styles";
 import { Separator } from "./components/styles/Separator.styles";
+import WeatherPage from "./components/WeatherPage/WeatherPage";
 
 export function App() {
     return (
         <>
             <StyledContainer>
-                <WeatherEditor />
-                <Separator
-                    width="1px"
-                    height="60%"
-                    color={theme.colors.primaryBorder}
-                />
-                <WeatherWidget />
+                <WeatherPage />
             </StyledContainer>
             <h3>Created by - Remi Hoeppe</h3>
         </>

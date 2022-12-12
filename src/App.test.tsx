@@ -16,13 +16,13 @@ describe("App renders Created by text", () => {
         isWindDisplayed: true,
     };
 
-    const mockStore = configureStore(initialState);
+    const mockStore = configureStore();
     const appStore = mockStore(initialState);
 
     render(
         <ThemeProvider theme={theme}>
             <GlobalStyles />
-            <Provider store={mockStore}>
+            <Provider store={appStore}>
                 <App />
             </Provider>
         </ThemeProvider>,
@@ -30,4 +30,3 @@ describe("App renders Created by text", () => {
     const createdBy = screen.getByText(/Create by/i);
     expect(createdBy).toBeInTheDocument();
 });
-import tempChange, { changeTemp } from "./redux/tempChange";
