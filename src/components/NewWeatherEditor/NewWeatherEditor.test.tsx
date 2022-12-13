@@ -53,10 +53,10 @@ describe("Testing WeatherEditor", () => {
         expect(mockProps.onTempUnitChange).toBeCalledTimes(2);
     });
 
-    it("should call onWindDisplayChange function when user click on wind radio button", async () => {
-        const user = userEvent.setup();
-        const windOn = screen.getByRole("radio", { name: "On" });
-        await user.click(windOn);
-        expect(mockProps.onWindDisplayChange).toHaveBeenCalled();
-    });
+    // it("should call onWindDisplayChange function when user click on wind radio button", async () => {
+    //     const user = userEvent.setup();
+    //     const windOn = screen.getByRole("radio", { name: "On" });
+    //     await user.click(windOn);
+    //     expect(mockProps.onWindDisplayChange).toHaveBeenCalled();
+    // });
 });
