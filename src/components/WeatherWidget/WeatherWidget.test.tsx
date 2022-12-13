@@ -1,6 +1,5 @@
-import { render, screen, rerender } from "@testing-library/react";
-import WeatherWidget from "../WeatherWidget";
-import NewWeatherWidget from "./NewWeatherWidget";
+import { render, screen } from "@testing-library/react";
+import WeatherWidget from "./WeatherWidget";
 
 const mockProps: any = {
     weatherData: {
@@ -19,7 +18,7 @@ const mockProps: any = {
 describe("Testing WeatherEditor", () => {
     beforeEach(async () => {
         await render(
-            <NewWeatherWidget
+            <WeatherWidget
                 weatherData={mockProps.weatherData}
                 location={mockProps.location}
                 widgetTitle={mockProps.widgetTitle}
@@ -56,7 +55,7 @@ describe("Testing WeatherEditor", () => {
 
     it("should display the updated props when the components re-renders on the DOM", async () => {
         const { rerender } = render(
-            <NewWeatherWidget
+            <WeatherWidget
                 weatherData={{
                     weather: [{ icon: "02d" }],
                     main: { temp: 35 },
@@ -74,7 +73,7 @@ describe("Testing WeatherEditor", () => {
 describe("Testing re-rendering of WeatherWidget", async () => {
     beforeEach(() => {
         const { rerender } = render(
-            <NewWeatherWidget
+            <WeatherWidget
                 weatherData={mockProps.weatherData}
                 location={mockProps.location}
                 widgetTitle={mockProps.widgetTitle}
@@ -84,7 +83,7 @@ describe("Testing re-rendering of WeatherWidget", async () => {
         );
 
         rerender(
-            <NewWeatherWidget
+            <WeatherWidget
                 weatherData={{
                     weather: [{ icon: "02d" }],
                     main: { temp: 85 },

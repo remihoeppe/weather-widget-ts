@@ -1,5 +1,5 @@
-import { degToCompass, mpsToKph } from "./../../services/windUtils";
-import { celsiusToFahrenheit } from "./../../services/tempUtils";
+import { degToCompass, mpsToKph } from "../../services/windUtils";
+import { celsiusToFahrenheit } from "../../services/tempUtils";
 
 interface WeatherWidgetProps {
     weatherData: {
@@ -15,7 +15,7 @@ interface WeatherWidgetProps {
     };
 }
 
-const NewWeatherWidget = ({
+const WeatherWidget = ({
     weatherData,
     location,
     widgetTitle,
@@ -58,4 +58,4 @@ const NewWeatherWidget = ({
     );
 };
 
-export default NewWeatherWidget;
+export default WeatherWidget;

@@ -1,16 +1,18 @@
+import { useEffect, useState } from "react";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import { changeTemp } from "../../redux/tempChange";
 import { switchWindDisplay } from "../../redux/windChange";
 import { changeTitleText } from "../../redux/titleChange";
-//
-import { useEffect, useState } from "react";
-import NewWeatherEditor from "../NewWeatherEditor/NewWeatherEditor";
-import { StyledContainer } from "./../styles/Container.styles";
-import NewWeatherWidget from "../NewWeatherWidget/NewWeatherWidget";
+// Components
+import WeatherEditor from "../WeatherEditor/WeatherEditor";
+import { Separator } from "../styles/Separator.styles";
+import WeatherWidget from "./../WeatherWidget/WeatherWidget";
+// Functions
 import getLocationInfo from "./../../services/geocoding";
 import getCurrentWeather from "./../../services/weather";
-import { Separator } from "../styles/Separator.styles";
+//Style
+import { StyledContainer } from "./../styles/Container.styles";
 import { theme } from "../styles/Theme";
 import { StyledEditor } from "../styles/WeatherEditor.styles";
 import { StyledWidget } from "../styles/WeatherWidget.styles";
@@ -86,7 +88,7 @@ const WeatherPage = () => {
     return (
         <StyledContainer>
             <StyledEditor>
-                <NewWeatherEditor
+                <WeatherEditor
                     onTitleChange={handleInputChange}
                     onTempUnitChange={handleChangeTempUnit}
                     onWindDisplayChange={handleWindDisplayChange}
@@ -100,7 +102,7 @@ const WeatherPage = () => {
                 color={theme.colors.primaryBorder}
             />
             <StyledWidget>
-                <NewWeatherWidget
+                <WeatherWidget
                     weatherData={currentWeather}
                     isWindOn={isWindDisplayed}
                     tempUnit={currentTemp}

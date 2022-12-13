@@ -6,8 +6,6 @@ export function App() {
     return (
         <>
             <WeatherPage />
-
-            <h3>Created by - Remi Hoeppe</h3>
         </>
     );
 }

@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { vi } from "vitest";
 import userEvent from "@testing-library/user-event";
-import NewWeatherEditor from "./NewWeatherEditor";
+import WeatherEditor from "./WeatherEditor";
 
 const mockProps: any = {
     tempUnit1: "F",
@@ -20,7 +20,7 @@ const mockProps: any = {
 describe("Testing WeatherEditor", () => {
     beforeEach(async () => {
         await render(
-            <NewWeatherEditor
+            <WeatherEditor
                 onTitleChange={mockProps.onTitleChange}
                 onTempUnitChange={mockProps.onTempUnitChange}
                 onWindDisplayChange={mockProps.onWindDisplayChange}
@@ -53,10 +53,10 @@ describe("Testing WeatherEditor", () => {
         expect(mockProps.onTempUnitChange).toBeCalledTimes(2);
     });
 
-    // it("should call onWindDisplayChange function when user click on wind radio button", async () => {
-    //     const user = userEvent.setup();
-    //     const windOn = screen.getByRole("radio", { name: "On" });
-    //     await user.click(windOn);
-    //     expect(mockProps.onWindDisplayChange).toHaveBeenCalled();
-    // });
+    it("should call onWindDisplayChange function when user click on wind radio button", async () => {
+        const user = userEvent.setup();
+        const windOn = screen.getByRole("radio", { name: "On" });
+        await user.click(windOn);
+        expect(mockProps.onWindDisplayChange).toHaveBeenCalled();
+    });
 });
