@@ -1,5 +1,3 @@
-import { StyledEditor } from "../styles/WeatherEditor.styles";
-
 interface NewWeatherEditorProps {
     onTitleChange: (e: any) => void;
     onTempUnitChange: (e: any) => void;
@@ -20,71 +18,69 @@ const NewWeatherEditor = ({
     const errorMessage = "Please enter a Title for your widget";
 
     return (
-        <StyledEditor>
-            <form>
-                <label htmlFor="widget-title">Title</label>
-                <input
-                    type="text"
-                    onChange={onTitleChange}
-                    id="widget-title"
-                    placeholder="Widget Title"
-                />
+        <form>
+            <label htmlFor="widget-title">Title</label>
+            <input
+                type="text"
+                onChange={onTitleChange}
+                id="widget-title"
+                placeholder="Widget Title"
+            />
 
-                {/* Radio selectors for Temperature Units */}
-                <legend>Temperature</legend>
-                <div>
-                    <label htmlFor="tempC">
-                        <input
-                            type="radio"
-                            name="celsius"
-                            id="tempC"
-                            value="C"
-                            checked={tempUnit === "C"}
-                            onChange={onTempUnitChange}
-                        />
-                        °C
-                    </label>
+            {/* Radio selectors for Temperature Units */}
+            <legend>Temperature</legend>
+            <div>
+                <label htmlFor="tempC">
+                    <input
+                        type="radio"
+                        name="celsius"
+                        id="tempC"
+                        value="C"
+                        checked={tempUnit === "C"}
+                        onChange={onTempUnitChange}
+                    />
+                    °C
+                </label>
 
-                    <label htmlFor="tempF">
-                        <input
-                            type="radio"
-                            name="fahrenheit"
-                            id="tempF"
-                            value="F"
-                            checked={tempUnit === "F"}
-                            onChange={onTempUnitChange}
-                        />
-                        °F
-                    </label>
-                </div>
+                <label htmlFor="tempF">
+                    <input
+                        type="radio"
+                        name="fahrenheit"
+                        id="tempF"
+                        value="F"
+                        checked={tempUnit === "F"}
+                        onChange={onTempUnitChange}
+                    />
+                    °F
+                </label>
+            </div>
 
-                {/* Radio selectors for Wind Speed Display switch */}
-                <legend>Wind</legend>
-                <div>
-                    <label htmlFor="windOn">
-                        <input
-                            type="radio"
-                            value="On"
-                            id="windOn"
-                            checked={isWindOn}
-                            onChange={onWindDisplayChange}
-                        />
-                        On
-                    </label>
+            {/* Radio selectors for Wind Speed Display switch */}
+            <legend>Wind</legend>
+            <div>
+                <label htmlFor="windOn">
+                    <input
+                        type="radio"
+                        value="On"
+                        id="windOn"
+                        checked={isWindOn}
+                        onChange={onWindDisplayChange}
+                    />
+                    On
+                </label>
 
-                    <label htmlFor="windOn">
-                        <input
-                            type="radio"
-                            value="Off"
-                            id="windOff"
-                            checked={!isWindOn}
-                            onChange={onWindDisplayChange}
-                        />
-                        Off
-                    </label>
-                </div>
-            </form>
-        </StyledEditor>
+                <label htmlFor="windOff">
+                    <input
+                        type="radio"
+                        value="Off"
+                        id="windOff"
+                        checked={!isWindOn}
+                        onChange={onWindDisplayChange}
+                    />
+                    Off
+                </label>
+            </div>
+        </form>
     );
 };
 
