@@ -59,6 +59,4 @@ describe("Testing WeatherEditor", () => {
         await user.click(windOn);
         expect(mockProps.onWindDisplayChange).toHaveBeenCalled();
     });
-
-    it("Should display the right prop values");
 });

@@ -1,6 +1,5 @@
 import { degToCompass, mpsToKph } from "./../../services/windUtils";
 import { celsiusToFahrenheit } from "./../../services/tempUtils";
-import { StyledWidget } from "./../styles/WeatherWidget.styles";
 
 interface WeatherWidgetProps {
     weatherData: {
@@ -28,7 +27,7 @@ const NewWeatherWidget = ({
     }@2x.png`;
 
     return (
-        <StyledWidget>
+        <>
             <h2>{widgetTitle ? widgetTitle : "Widget Title"}</h2>
 
             <div>
@@ -55,7 +54,7 @@ const NewWeatherWidget = ({
                     )}
                 </div>
             </div>
-        </StyledWidget>
+        </>
     );
 };
 

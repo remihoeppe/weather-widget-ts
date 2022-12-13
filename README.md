@@ -66,13 +66,32 @@ Vite will display which port to access on your localhost (e.g. http://localhost:
 
 ## Implementation Details
 
-### React App
+### Vite Template Build
+
+`npm create vite@latest my-react-app -- --template react-ts`
+
+Vite is a modern JavaScript development tool that can be used to initialize a React app. I decided to use it over `create-react-app` for a few reasons:
+
+-   It offers faster build times and smaller bundle sizes.
+-   It uses native ES module imports.
+-   Furthermore, it comes with built-in support for TypeScript, so I didn't have to spend time configuring the TypeScript compiler and other dependencies, make my development process more efficient.
+
+[Learn More about Vite](https://vitejs.dev/guide/why.html)
+
+### React Components
+
+-   I initially decided to only created two components `<WeatherEditor>` & `<WeatherWidget>`, however I came to realize that this would make both these components very much stateful and relying on the Redux Store, thus making neither reusable nor easily testable.
+-   I then decided to extract all state and Redux logic out of these two components and abstract it in a higher order component (i.e. container), named `<WeatherPage>`.
+-   That container handles all the necessary logic, from Redux Read & Write dispatch methods, to API calls and is then handling passing down the appropriate data to the two "dumb" components.
+-   By doing so I actually ended up reducing the amount of code linked to access Redux Store variables (not having to access these in both `<WeatherEditor>` and `<WeatherWidget>`) but I have also made these components more easily testable as I will not have to mock a Redux Store when trying to test them.
 
 ### Styling
 
 -   Talk about modularization of Styled-components
 
 ### Service Functions
+
+-   Had to handle three different API calls
 
 1. User location → returns latitude + longitude
 1. Reverse geocoding → to get location name based on coordinates
@@ -86,9 +105,10 @@ Vite will display which port to access on your localhost (e.g. http://localhost:
     -   `enableHighAccuracy: true` → will slow down response time as well as increase power consumption. Should consider adding a device detection method allowing to switch this option ([Navigator.userAgent](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/userAgent)).
     -   `maximumAge: 0` → means that the device cannot use a cached position and must attempt to retrieve the real current position. If performance is a concern, this could be changed to allow for cached value to be retrieved and prevent too many API calls to be performed.
 
--   The OpenWeather API
-    -   Had to handle three different API calls
-    -   I decided to proceed in getting the coordinates' data inside the reverse geocoding API call and to expose the combined resources (location name + coordinates) to the WeatherWidget components, rather than keeping track of two different state variables. It seemed to be the easiest route to go down as the API returned the coordinates by default.
+-   ## The OpenWeather API
+    -   I decided to proceed in getting the coordinates' data inside the reverse geocoding API call and to expose the combined resources (location name + coordinates) to the `<WeatherPage />` container, rather than keeping track of two different state variables. It seemed to be the easiest route to go down as the API returned the coordinates alongside the name of the location as its default response.
+        <!-- -   Making the choice of converting temp rather than doing another API call when tempUnit changes -->
+        <!-- -   Storing API KEY in .env file in Vite project -->
 
 ### Utility Functions
 
@@ -96,9 +116,43 @@ Vite will display which port to access on your localhost (e.g. http://localhost:
 
 ### React Component Testing
 
-redux-mock-store
+> -   jest-dom
+
+The jest-dom package is a set of custom jest matchers that make it easier to test the behavior of React components. It provides a variety of utility functions and matchers that can be used to assert the state and behavior of DOM elements, such as whether a particular element is present in the DOM, whether it has the expected text content or attributes, and whether it has been correctly updated in response to user interactions.
+
+This can be especially useful when writing unit tests for React components, as it allows you to test the component's output in a way that is more user-friendly and intuitive than checking the raw HTML output.
+
+> -   vitest (setup)
+
+Share configuration with vite (ensures the testing environment is similar to the build environment).
+Vitest’s approach to the testing space: let the tool control your entire environment, top to bottom.
+Vitest supports HMR (Hot Module Reloading), which speeds up your workflow. With HMR, only the changes are updated on the server, and the server reflects the new changes.
+Jest Snapshot support.
+
+Vitest is a replacement for a suite of tools:
+Jest, Mocha, or Chai for test utilities
+Babel for transpiling ESM, TypeScript, and more
+webpack or Rollup for bundling test dependencies (if needed)
+
+How does Vitest compare to Jest?
+
+Only one config needed: with vitest, configuration for dev, build and test environment as a single pipeline, sharing the same plugins and the same vite.config.ts.
+
+> -   react-testing-library
+
+> -   redux-mock-store
+
+https://testing-library.com/docs/guiding-principles/
 
 -   Priority Order:
-    -   Main MVP features (ie. Title input, temperature unit choice, winds peed display)
+    -   Main MVP features (ie. Title input, temperature unit choice, winds speed display)
     -   Conditional rendering (User location, weather icon, wind speed text)
     -   Utility functions (speed, temperature and degree/compass conversion)
+
+## Next Steps
+
+### Adding to the components' library
+
+###
+
+###

@@ -12,11 +12,13 @@ import getLocationInfo from "./../../services/geocoding";
 import getCurrentWeather from "./../../services/weather";
 import { Separator } from "../styles/Separator.styles";
 import { theme } from "../styles/Theme";
+import { StyledEditor } from "../styles/WeatherEditor.styles";
+import { StyledWidget } from "../styles/WeatherWidget.styles";
 
 const WeatherPage = () => {
     const dispatch = useDispatch();
 
-    // Shared Redux Store Read variables
+    // Shared Redux Store Read and state variables
     const currentWidgetTitle = useSelector(
         (state: any) => state.titleTextChange.value,
     );
@@ -25,11 +27,11 @@ const WeatherPage = () => {
         (state: any) => state.windChange.value,
     );
 
-    // Handling logic for WeatherEditor
-
     const [titleInput, setTitleInput] = useState("Widget Title");
     const [tempUnit, setTempUnit] = useState(currentTemp);
     const [isWindDisplayed, setIsWindDisplayed] = useState(true);
+
+    // Handling logic for WeatherEditor
 
     const handleInputChange = (e: any) => setTitleInput(e.target.value);
     const handleChangeTempUnit = (e: any) => {
@@ -83,25 +85,29 @@ const WeatherPage = () => {
 
     return (
         <StyledContainer>
-            <NewWeatherEditor
-                onTitleChange={handleInputChange}
-                onTempUnitChange={handleChangeTempUnit}
-                onWindDisplayChange={handleWindDisplayChange}
-                tempUnit={currentTemp}
-                isWindOn={isWindDisplayed}
-            />
+            <StyledEditor>
+                <NewWeatherEditor
+                    onTitleChange={handleInputChange}
+                    onTempUnitChange={handleChangeTempUnit}
+                    onWindDisplayChange={handleWindDisplayChange}
+                    tempUnit={currentTemp}
+                    isWindOn={isWindDisplayed}
+                />
+            </StyledEditor>
             <Separator
                 width="1px"
                 height="60%"
                 color={theme.colors.primaryBorder}
             />
-            <NewWeatherWidget
-                currentWeather={currentWeather}
-                currentWindDisplay={isWindDisplayed}
-                currentTemp={tempUnit}
-                currentWidgetTitle={currentWidgetTitle}
-                userLocation={userLocation}
-            />
+            <StyledWidget>
+                <NewWeatherWidget
+                    weatherData={currentWeather}
+                    isWindOn={isWindDisplayed}
+                    tempUnit={currentTemp}
+                    widgetTitle={currentWidgetTitle}
+                    location={userLocation}
+                />
+            </StyledWidget>
         </StyledContainer>
     );
 };

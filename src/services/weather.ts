@@ -47,8 +47,6 @@ const getCurrentWeather = async (
     lat: number,
     lon: number,
 ): Promise<WeatherResponse> => {
-    console.log("lat:", lat, "lon", lon);
-
     // Look at taking a unit param to decide if API call should be done in C or F. Check what is the most economical for API Calls/re renders
 
     const response = await fetch(
@@ -56,7 +54,6 @@ const getCurrentWeather = async (
     );
 
     const data = await response.json();
-    console.log("Weather Data: ", data);
     return data;
 };
 

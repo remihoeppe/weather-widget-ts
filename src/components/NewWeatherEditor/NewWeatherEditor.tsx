@@ -60,6 +60,7 @@ const NewWeatherEditor = ({
             <div>
                 <label htmlFor="windOn">
                     <input
+                        name="windOn"
                         type="radio"
                         value="On"
                         id="windOn"
@@ -71,6 +72,7 @@ const NewWeatherEditor = ({
 
                 <label htmlFor="windOff">
                     <input
+                        name="windOff"
                         type="radio"
                         value="Off"
                         id="windOff"
