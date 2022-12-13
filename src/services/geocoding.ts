@@ -1,3 +1,4 @@
+import { CustomError, ErrorMessage } from "./error";
 import getCoordinates from "./geolocation";
 
 interface LocationData {
@@ -8,17 +9,24 @@ interface LocationData {
     state: string;
 }
 
-const getLocationInfo = async (): Promise<LocationData> => {
+const getLocationInfo = async (): Promise<
+    LocationData | CustomError | undefined
+> => {
     console.log("API KEY:", import.meta.env.VITE_WEATHER_API_KEY);
 
-    const coords = await getCoordinates();
-    const response = await fetch(
-        `http://api.openweathermap.org/geo/1.0/reverse?lat=${coords.latitude}&lon=${coords.longitude}&limit=1&appid=8ee5f11c428c074f5c9d91722a66b37c`,
-    );
-
-    const data = await response.json();
-    console.log("Data in Geocoding => ", data[0]);
-    return data[0];
+    try {
+        const coords: any = await getCoordinates();
+        const response = await fetch(
+            `http://api.openweathermap.org/geo/1.0/reverse?lat=${coords.latitude}&lon=${coords.longitude}&limit=1&appid=8ee5f11c428c074f5c9d91722a66b37c`,
+        );
+        if (!response) throw new Error("Somehing wrong happened");
+        const data = await response.json();
+        return data[0];
+    } catch (error) {
+        if (error) {
+            throw new Error(ErrorMessage.servorErrorMessage);
+        }
+    }
 };
 
 export default getLocationInfo;
