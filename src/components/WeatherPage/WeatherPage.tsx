@@ -40,6 +40,7 @@ const WeatherPage = () => {
         setTempUnit(e.target.value);
     };
     const handleWindDisplayChange = (e: any) => {
+        console.log("handleWindDisplay Has been called");
         setIsWindDisplayed(e.target.value === "On" ? true : false);
     };
 
@@ -61,7 +62,6 @@ const WeatherPage = () => {
         setTitleInput(currentWidgetTitle);
     }, []);
 
-    ////
     // Handling logic required for the WeatherWidget
 
     const [userLocation, setUserLocation] = useState<any>();

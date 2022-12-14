@@ -1,3 +1,5 @@
+import { e } from "vitest/dist/index-fde81ec3";
+
 interface WeatherEditorProps {
     onTitleChange: (e: any) => void;
     onTempUnitChange: (e: any) => void;
@@ -33,11 +35,13 @@ const WeatherEditor = ({
                 <label htmlFor="tempC">
                     <input
                         type="radio"
-                        name="celsius"
                         id="tempC"
                         value="C"
                         checked={tempUnit === "C"}
-                        onChange={onTempUnitChange}
+                        onChange={(e) =>
+                            tempUnit === "F" ? (e.target.checked = true) : false
+                        }
+                        onClick={onTempUnitChange}
                     />
                     °C
                 </label>
@@ -45,11 +49,13 @@ const WeatherEditor = ({
                 <label htmlFor="tempF">
                     <input
                         type="radio"
-                        name="fahrenheit"
                         id="tempF"
                         value="F"
                         checked={tempUnit === "F"}
-                        onChange={onTempUnitChange}
+                        onChange={(e) =>
+                            tempUnit === "C" ? (e.target.checked = true) : false
+                        }
+                        onClick={onTempUnitChange}
                     />
                     °F
                 </label>
@@ -60,24 +66,28 @@ const WeatherEditor = ({
             <div>
                 <label htmlFor="windOn">
                     <input
-                        name="windOn"
                         type="radio"
                         value="On"
                         id="windOn"
                         checked={isWindOn}
-                        onChange={onWindDisplayChange}
+                        onChange={(e) =>
+                            isWindOn ? (e.target.checked = true) : false
+                        }
+                        onClick={onWindDisplayChange}
                     />
                     On
                 </label>
 
                 <label htmlFor="windOff">
                     <input
-                        name="windOff"
                         type="radio"
                         value="Off"
                         id="windOff"
                         checked={!isWindOn}
-                        onChange={onWindDisplayChange}
+                        onChange={(e) =>
+                            isWindOn ? (e.target.checked = true) : false
+                        }
+                        onClick={onWindDisplayChange}
                     />
                     Off
                 </label>

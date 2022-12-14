@@ -8,6 +8,7 @@ type Props = {
 
 export const StyledContainer = styled.section<Props>`
     width: 90%;
+    min-width: 1032px;
     height: 400px;
     display: flex;
     justify-content: space-around;

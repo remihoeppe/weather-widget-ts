@@ -51,7 +51,7 @@ Vite will display which port to access on your localhost (e.g. http://localhost:
 -   After getting familiar with concept of Store and reducers and getting to grasp with all the layers at play I started using this new "Context" for the Weather Widget.
 -   I created the first Slicer in plain JS to make sure that it was working and that I was able to both write and read from the store before converting this part of the code to TS.
     -   By Taking small, iterative steps into this new frameworks I was able to fairly quickly be able to use it and build a fully functional front-end app.
-    -   Going deeper into the documentation, I can appreciate the level of complexity that reducers can add to state handling through context v. the React Context API.
+    -   Going deeper into the documentation, I can appreciate the level of complexity that reducers can add to state handling through "context" v. the React Context API.
 
 ### Style-components
 
@@ -59,10 +59,11 @@ Vite will display which port to access on your localhost (e.g. http://localhost:
 
 ### React Testing Library
 
--   I had mostly used Enzyme and the @wojtekmaj/enzyme-adapter-react-17 package when it came to test React components. However, since the of React 18, this adapter is out of date and will no longer be updated.
+-   I had mostly used Enzyme and the @wojtekmaj/enzyme-adapter-react-17 package when it came to test React components. However, since the release of React 18, this adapter is out of date and will no longer be updated.
 -   The `React Testing Library` has been on my list of "to learn" for sometimes now and this was the perfect opportunity for me to get to practice, speccing, coding, debugging and writing tests for a set of stateful components.
-    <!-- What was hard? -->
-    <!--  -->
+-
+
+### Environment Variables in Vite Project
 
 ## Implementation Details
 
@@ -122,21 +123,22 @@ The jest-dom package is a set of custom jest matchers that make it easier to tes
 
 This can be especially useful when writing unit tests for React components, as it allows you to test the component's output in a way that is more user-friendly and intuitive than checking the raw HTML output.
 
-> -   vitest (setup)
+> -   Vitest (setup)
 
-Share configuration with vite (ensures the testing environment is similar to the build environment).
+Share configuration with Vite (ensures the testing environment is similar to the build environment).
 Vitest’s approach to the testing space: let the tool control your entire environment, top to bottom.
 Vitest supports HMR (Hot Module Reloading), which speeds up your workflow. With HMR, only the changes are updated on the server, and the server reflects the new changes.
 Jest Snapshot support.
 
 Vitest is a replacement for a suite of tools:
-Jest, Mocha, or Chai for test utilities
-Babel for transpiling ESM, TypeScript, and more
-webpack or Rollup for bundling test dependencies (if needed)
+
+-   Jest, Mocha, or Chai for test utilities
+-   Babel for transpiling ESM, TypeScript, and more
+-   webpack or Rollup for bundling test dependencies (if needed)
 
 How does Vitest compare to Jest?
 
-Only one config needed: with vitest, configuration for dev, build and test environment as a single pipeline, sharing the same plugins and the same vite.config.ts.
+Only one config needed: with Vitest, configuration for dev, build and test environment as a single pipeline, sharing the same plugins and the same [configuration file](./vite.config.ts)
 
 > -   react-testing-library
 

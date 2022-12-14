@@ -1,3 +1,5 @@
+import { CustomError, ErrorMessage } from "./error";
+
 export interface WeatherResponse {
     coord: {
         lon: number;
@@ -46,15 +48,21 @@ export interface WeatherResponse {
 const getCurrentWeather = async (
     lat: number,
     lon: number,
-): Promise<WeatherResponse> => {
+): Promise<WeatherResponse | CustomError> => {
     // Look at taking a unit param to decide if API call should be done in C or F. Check what is the most economical for API Calls/re renders
 
-    const response = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=8ee5f11c428c074f5c9d91722a66b37c&units=metric`,
-    );
-
-    const data = await response.json();
-    return data;
+    try {
+        const response = await fetch(
+            `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=8ee5f11c428c074f5c9d91722a66b37c&units=metric`,
+        );
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        return {
+            message: ErrorMessage.servorErrorMessage,
+            resolution: "rejected",
+        };
+    }
 };
 
 export default getCurrentWeather;

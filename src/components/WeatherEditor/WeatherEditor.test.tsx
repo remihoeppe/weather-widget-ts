@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { vi } from "vitest";
 import userEvent from "@testing-library/user-event";
 import WeatherEditor from "./WeatherEditor";
@@ -8,13 +8,9 @@ const mockProps: any = {
     tempUnit2: "C",
     widgetTitle: "Sydney",
     windOn: true,
-    onTitleChange: vi.fn((e: any) => e.target.value),
+    onTitleChange: vi.fn((e: any) => (mockProps.widgetTitle = e.target.value)),
     onTempUnitChange: vi.fn((e: any) => e.target.value),
-    onWindDisplayChange: vi.fn((e: any) =>
-        e.target.value === "On"
-            ? (mockProps.windOn = true)
-            : (mockProps.windOn = false),
-    ),
+    onWindDisplayChange: vi.fn((e: any) => e.target.value),
 };
 
 describe("Testing WeatherEditor", () => {
@@ -30,11 +26,22 @@ describe("Testing WeatherEditor", () => {
         );
     });
 
+    afterEach(async () => {
+        await vi.clearAllMocks();
+    });
+
     it("should call onTitleChange function when user input text for Widget Title", async () => {
         const user = userEvent.setup();
         const input = screen.getByRole("textbox", { name: "Title" });
         await user.type(input, "Bali");
-        expect(mockProps.onTitleChange).toHaveBeenCalled();
+        expect(mockProps.onTitleChange).toBeCalledTimes(4);
+    });
+
+    it("should reset the title when the user clears the input", async () => {
+        const user = userEvent.setup();
+        const input = screen.getByRole("textbox", { name: "Title" });
+        await user.clear(input);
+        expect(input).toHaveTextContent("");
     });
 
     it("should call onTempChange function when user click on Temperature radio button", async () => {
@@ -50,7 +57,8 @@ describe("Testing WeatherEditor", () => {
         await user.click(radioC);
         const radioF = screen.getByRole("radio", { name: "°F" });
         await user.click(radioF);
-        expect(mockProps.onTempUnitChange).toBeCalledTimes(2);
+        await user.click(radioC);
+        expect(mockProps.onTempUnitChange).toBeCalledTimes(3);
     });
 
     it("should call onWindDisplayChange function when user click on wind radio button", async () => {
