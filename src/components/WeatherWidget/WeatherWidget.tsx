@@ -1,5 +1,5 @@
 import { degToCompass, mpsToKph } from "../../services/windUtils";
-import { celsiusToFahrenheit } from "../../services/tempUtils";
+import { celsiusToFahrenheit, roundTemp } from "../../services/tempUtils";
 
 interface WeatherWidgetProps {
     weatherData: {
@@ -36,11 +36,13 @@ const WeatherWidget = ({
                     <h4>{location?.name}</h4>
                     <h3>
                         {tempUnit === "C"
-                            ? Math.round(weatherData?.main?.temp)
-                            : Math.round(
+                            ? `${roundTemp(weatherData?.main?.temp)}`
+                            : `${roundTemp(
                                   celsiusToFahrenheit(weatherData?.main?.temp),
-                              )}
-                        °{tempUnit}
+                              )}`}
+                        {weatherData?.main?.temp !== undefined
+                            ? `°${tempUnit}`
+                            : ""}
                     </h3>
                     {isWindOn ? (
                         <p>
