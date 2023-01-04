@@ -1,4 +1,5 @@
 import { e } from "vitest/dist/index-fde81ec3";
+import { StyledInputText } from "../styles/StyledInput";
 import { StyledRadio } from "../styles/StyledRadio";
 
 interface WeatherEditorProps {
@@ -22,13 +23,15 @@ const WeatherEditor = ({
 
     return (
         <form>
-            <label htmlFor="widget-title">Title</label>
-            <input
-                type="text"
-                onChange={onTitleChange}
-                id="widget-title"
-                placeholder="Widget Title"
-            />
+            <StyledInputText>
+                <label htmlFor="widget-title">Title</label>
+                <input
+                    type="text"
+                    onChange={onTitleChange}
+                    id="widget-title"
+                    placeholder="Widget Title"
+                />
+            </StyledInputText>
 
             {/* Radio selectors for Temperature Units */}
             <legend>Temperature</legend>
