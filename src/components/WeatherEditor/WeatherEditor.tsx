@@ -1,4 +1,5 @@
 import { e } from "vitest/dist/index-fde81ec3";
+import { StyledRadio } from "../styles/StyledRadio";
 
 interface WeatherEditorProps {
     onTitleChange: (e: any) => void;
@@ -32,7 +33,7 @@ const WeatherEditor = ({
             {/* Radio selectors for Temperature Units */}
             <legend>Temperature</legend>
             <div>
-                <label htmlFor="tempC">
+                <StyledRadio htmlFor="tempC">
                     <input
                         type="radio"
                         id="tempC"
@@ -44,9 +45,9 @@ const WeatherEditor = ({
                         onClick={onTempUnitChange}
                     />
                     °C
-                </label>
+                </StyledRadio>
 
-                <label htmlFor="tempF">
+                <StyledRadio htmlFor="tempF">
                     <input
                         type="radio"
                         id="tempF"
@@ -58,13 +59,13 @@ const WeatherEditor = ({
                         onClick={onTempUnitChange}
                     />
                     °F
-                </label>
+                </StyledRadio>
             </div>
 
             {/* Radio selectors for Wind Speed Display switch */}
             <legend>Wind</legend>
             <div>
-                <label htmlFor="windOn">
+                <StyledRadio htmlFor="windOn">
                     <input
                         type="radio"
                         value="On"
@@ -76,9 +77,8 @@ const WeatherEditor = ({
                         onClick={onWindDisplayChange}
                     />
                     On
-                </label>
-
-                <label htmlFor="windOff">
+                </StyledRadio>
+                <StyledRadio htmlFor="windOff">
                     <input
                         type="radio"
                         value="Off"
@@ -90,7 +90,7 @@ const WeatherEditor = ({
                         onClick={onWindDisplayChange}
                     />
                     Off
-                </label>
+                </StyledRadio>
             </div>
         </form>
     );

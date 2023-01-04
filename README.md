@@ -61,7 +61,6 @@ Vite will display which port to access on your localhost (e.g. http://localhost:
 
 -   I had mostly used Enzyme and the @wojtekmaj/enzyme-adapter-react-17 package when it came to test React components. However, since the release of React 18, this adapter is out of date and will no longer be updated.
 -   The `React Testing Library` has been on my list of "to learn" for sometimes now and this was the perfect opportunity for me to get to practice, speccing, coding, debugging and writing tests for a set of stateful components.
--
 
 ## Implementation Details
 

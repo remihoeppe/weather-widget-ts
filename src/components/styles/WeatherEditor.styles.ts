@@ -24,20 +24,5 @@ export const StyledEditor = styled.div<Props>`
             border-radius: 5px;
             border: 2px solid #ccc;
         }
-
-        div {
-            display: flex;
-            justify-content: flex-start;
-
-            label {
-                margin-right: 100px;
-
-                input {
-                    margin: 20px 20px 20px 0;
-                    width: 20px;
-                    height: 20px;
-                }
-            }
-        }
     }
 `;
