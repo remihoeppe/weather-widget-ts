@@ -25,7 +25,7 @@ The data the widget displays is determined by the settings in the editor.
 -   I initialized this project with [Vite](https://vitejs.dev/guide/)
 -   This React project was written in TypeScript, you will find the configuration [HERE](./tsconfig.json)
 -   Styling was done using the [styled-components](https://styled-components.com/) framework.
--   Live version of this project is hosted on AWS Amplify [HERE]()
+-   Live version of this project is hosted on AWS Amplify [HERE](https://main.d1uwny9o893bvz.amplifyapp.com/)
 
 ## Setup
 
@@ -39,7 +39,7 @@ Vite will display which port to access on your localhost (e.g. http://localhost:
 
 -   I will need two main components, returned to the same level ("siblings")
 -   One component (the "Editor") will write to the context, while the other component (the "widget") will consume state from the context
--   I will the Style-components framework
+-   I will add styling using the Styled-components framework
 -   I will add the unit to the widget to make it clear "weather" the temperature is in `°C` or `°F`
 
 ## Challenges
@@ -50,7 +50,7 @@ Vite will display which port to access on your localhost (e.g. http://localhost:
 -   I dived right in the documentation and started by implementing a simple example of a Redux store in JS.
 -   After getting familiar with concept of Store and reducers and getting to grasp with all the layers at play I started using this new "Context" for the Weather Widget.
 -   I created the first Slicer in plain JS to make sure that it was working and that I was able to both write and read from the store before converting this part of the code to TS.
-    -   By Taking small, iterative steps into this new frameworks I was able to fairly quickly be able to use it and build a fully functional front-end app.
+    -   By taking small, iterative steps into this new frameworks I was able to fairly quickly be able to use it and build a fully functional front-end app.
     -   Going deeper into the documentation, I can appreciate the level of complexity that reducers can add to state handling through "context" v. the React Context API.
 
 ### Style-components
@@ -62,8 +62,6 @@ Vite will display which port to access on your localhost (e.g. http://localhost:
 -   I had mostly used Enzyme and the @wojtekmaj/enzyme-adapter-react-17 package when it came to test React components. However, since the release of React 18, this adapter is out of date and will no longer be updated.
 -   The `React Testing Library` has been on my list of "to learn" for sometimes now and this was the perfect opportunity for me to get to practice, speccing, coding, debugging and writing tests for a set of stateful components.
 -
-
-### Environment Variables in Vite Project
 
 ## Implementation Details
 
@@ -108,20 +106,14 @@ Vite is a modern JavaScript development tool that can be used to initialize a Re
 
 -   ## The OpenWeather API
     -   I decided to proceed in getting the coordinates' data inside the reverse geocoding API call and to expose the combined resources (location name + coordinates) to the `<WeatherPage />` container, rather than keeping track of two different state variables. It seemed to be the easiest route to go down as the API returned the coordinates alongside the name of the location as its default response.
-        <!-- -   Making the choice of converting temp rather than doing another API call when tempUnit changes -->
-        <!-- -   Storing API KEY in .env file in Vite project -->
+    -   As the location of the user is automatically detected and the API call retrieving the local temperature called by default for metric values, I decided to proceed in converting that value locally rather than spending more processing resources on server requests. Two small helper functions proceed in converting from metric to imperial or the other way around when the user select the relevant radio input.
+    -   <!-- -   Storing API KEY in .env file in Vite project -->
 
 ### Utility Functions
 
--   Converting Units
+-   tempUtils and windUtils contains simple conversion function for both temperature and wind speed and direction units. These function essentially do simple math operation to get useful data for our front end.
 
 ### React Component Testing
-
-> -   jest-dom
-
-The jest-dom package is a set of custom jest matchers that make it easier to test the behavior of React components. It provides a variety of utility functions and matchers that can be used to assert the state and behavior of DOM elements, such as whether a particular element is present in the DOM, whether it has the expected text content or attributes, and whether it has been correctly updated in response to user interactions.
-
-This can be especially useful when writing unit tests for React components, as it allows you to test the component's output in a way that is more user-friendly and intuitive than checking the raw HTML output.
 
 > -   Vitest (setup)
 
@@ -140,21 +132,49 @@ How does Vitest compare to Jest?
 
 Only one config needed: with Vitest, configuration for dev, build and test environment as a single pipeline, sharing the same plugins and the same [configuration file](./vite.config.ts)
 
+> -   jest-dom
+
+The jest-dom package is a set of custom jest matchers that make it easier to test the behavior of React components. It provides a variety of utility functions and matchers that can be used to assert the state and behavior of DOM elements, such as whether a particular element is present in the DOM, whether it has the expected text content or attributes, and whether it has been correctly updated in response to user interactions.
+
+This can be especially useful when writing unit tests for React components, as it allows you to test the component's output in a way that is more user-friendly and intuitive than checking the raw HTML output.
+
 > -   react-testing-library
 
-> -   redux-mock-store
+The React Testing Library is a library for testing React components. It is designed to test the behavior of the components as a user would interact with them, rather than just testing the internal logic of the components.
+
+Some reasons why I chose the RTL:
+
+-   It encourages the use of good testing practices, such as testing the component in isolation and avoiding testing implementation details.
+-   It helps to ensure that the tests accurately reflect how the component will be used in a real application.
+-   It makes it easier to write tests that are resilient to changes in the implementation of the component.
+-   It is lightweight and easy to use.
+-   It is widely used and has a strong community of developers contributing to it.
+
+What behavior I tested:
+
+-   For the `WeatherEditor`:
+
+    -   Does the Title Input handler function get called each time the user adds or remove a character from the input element?
+    -   Is the Title Input reset when the user deletes the current string in the input element?
+    -   Does the component register a change of state related to the temperature unit when the user click on the radio button?
+    -   Does the component register a change of state related to the wind display when the user click on the radio button?
+
+-   For the `WeatherWidget`:
+    -   Does the component render all its props correctly?
+    -   Is the wind displayed the related prop is set to `true`?
+    -   Does the component display accurate data when an update occurs?
 
 https://testing-library.com/docs/guiding-principles/
 
--   Priority Order:
-    -   Main MVP features (ie. Title input, temperature unit choice, winds speed display)
-    -   Conditional rendering (User location, weather icon, wind speed text)
-    -   Utility functions (speed, temperature and degree/compass conversion)
+> -   redux-mock-store
+
+<!-- TBE -->
 
 ## Next Steps
 
+-   Fix max length of Widget Title Length
+-   Check if possible to get higher resolution weather icon
+
 ### Adding to the components' library
 
-###
-
-###
+### Environment Variables in Vite Project
