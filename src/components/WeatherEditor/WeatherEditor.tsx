@@ -1,4 +1,4 @@
-import { e } from "vitest/dist/index-fde81ec3";
+import { Temp } from "./../../services/tempUtils";
 import { StyledInputText } from "../styles/StyledInput";
 import { StyledRadio } from "../styles/StyledRadio";
 
@@ -41,9 +41,11 @@ const WeatherEditor = ({
                         type="radio"
                         id="tempC"
                         value="C"
-                        checked={tempUnit === "C"}
+                        checked={tempUnit === Temp.Celius}
                         onChange={(e) =>
-                            tempUnit === "F" ? (e.target.checked = true) : false
+                            tempUnit === Temp.Fahrenheit
+                                ? (e.target.checked = true)
+                                : false
                         }
                         onClick={onTempUnitChange}
                     />
@@ -55,9 +57,11 @@ const WeatherEditor = ({
                         type="radio"
                         id="tempF"
                         value="F"
-                        checked={tempUnit === "F"}
+                        checked={tempUnit === Temp.Fahrenheit}
                         onChange={(e) =>
-                            tempUnit === "C" ? (e.target.checked = true) : false
+                            tempUnit === Temp.Celius
+                                ? (e.target.checked = true)
+                                : false
                         }
                         onClick={onTempUnitChange}
                     />

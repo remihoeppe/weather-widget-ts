@@ -1,3 +1,8 @@
+export enum Temp {
+    Celius = "C",
+    Fahrenheit = "F",
+}
+
 export const roundTemp = (temp: number | undefined) => {
     return temp !== undefined ? Math.round(temp) : "Data not available";
 };

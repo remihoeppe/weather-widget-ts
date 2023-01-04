@@ -1,5 +1,5 @@
 import { degToCompass, mpsToKph } from "../../services/windUtils";
-import { celsiusToFahrenheit, roundTemp } from "../../services/tempUtils";
+import { celsiusToFahrenheit, roundTemp, Temp } from "../../services/tempUtils";
 
 interface WeatherWidgetProps {
     weatherData: {
@@ -26,6 +26,11 @@ const WeatherWidget = ({
         weatherData?.weather?.at(0).icon
     }@2x.png`;
 
+    const tempInC = roundTemp(weatherData?.main?.temp);
+    const tempInF = roundTemp(celsiusToFahrenheit(weatherData?.main?.temp));
+    const windDir = degToCompass(weatherData?.wind?.deg);
+    const windSpeed = mpsToKph(weatherData?.wind?.speed);
+
     return (
         <>
             <h2>{widgetTitle ? widgetTitle : "Widget Title"}</h2>
@@ -35,11 +40,7 @@ const WeatherWidget = ({
                 <div className="weather-info">
                     <h4>{location?.name}</h4>
                     <h3>
-                        {tempUnit === "C"
-                            ? `${roundTemp(weatherData?.main?.temp)}`
-                            : `${roundTemp(
-                                  celsiusToFahrenheit(weatherData?.main?.temp),
-                              )}`}
+                        {tempUnit === Temp.Celius ? `${tempInC}` : `${tempInF}`}
                         {weatherData?.main?.temp !== undefined
                             ? `°${tempUnit}`
                             : ""}
@@ -47,9 +48,7 @@ const WeatherWidget = ({
                     {isWindOn ? (
                         <p>
                             <span>Wind</span>
-                            {`\v${degToCompass(
-                                weatherData?.wind?.deg,
-                            )} ${mpsToKph(weatherData?.wind?.speed)}km/h`}
+                            {`\v${windDir} ${windSpeed}km/h`}
                         </p>
                     ) : (
                         ""
