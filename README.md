@@ -85,7 +85,9 @@ Vite is a modern JavaScript development tool that can be used to initialize a Re
 
 ### Styling
 
--   Talk about modularization of Styled-components
+-   I started by only having two main styled components, one for each of my React components.
+-   I then refactored my code to add a theme file containing repeated colors used across both and adding a `StyledContainer` to deal with the overall layout.
+-   And finally I broke down the form of the `WeatherEditor` component further by having a `StyledInputText` and a `StyledRadio` wrapper allowing for these two smaller pieces of styling to be more easily reusable.
 
 ### Service Functions
 
