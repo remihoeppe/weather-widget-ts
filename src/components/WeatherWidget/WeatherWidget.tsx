@@ -26,33 +26,37 @@ const WeatherWidget = ({
         weatherData?.weather?.at(0).icon
     }@2x.png`;
 
-    const tempInC = roundTemp(weatherData?.main?.temp);
-    const tempInF = roundTemp(celsiusToFahrenheit(weatherData?.main?.temp));
-    const windDir = degToCompass(weatherData?.wind?.deg);
-    const windSpeed = mpsToKph(weatherData?.wind?.speed);
+    const tempValue =
+        tempUnit === Temp.Celius
+            ? `${roundTemp(weatherData?.main?.temp)}`
+            : `${roundTemp(celsiusToFahrenheit(weatherData?.main?.temp))}`;
+
+    const unitSystem =
+        weatherData?.main?.temp !== undefined ? `°${tempUnit}` : "";
+
+    const windDisplay = isWindOn ? (
+        <p>
+            <span>Wind</span>
+            {`\v${degToCompass(weatherData?.wind?.deg)} ${mpsToKph(
+                weatherData?.wind?.speed,
+            )}km/h`}
+        </p>
+    ) : (
+        ""
+    );
 
     return (
         <>
             <h2>{widgetTitle ? widgetTitle : "Widget Title"}</h2>
-
             <div>
                 <img src={weatherIconUrl} alt="" />
                 <div className="weather-info">
                     <h4>{location?.name}</h4>
                     <h3>
-                        {tempUnit === Temp.Celius ? `${tempInC}` : `${tempInF}`}
-                        {weatherData?.main?.temp !== undefined
-                            ? `°${tempUnit}`
-                            : ""}
+                        {tempValue}
+                        {unitSystem}
                     </h3>
-                    {isWindOn ? (
-                        <p>
-                            <span>Wind</span>
-                            {`\v${windDir} ${windSpeed}km/h`}
-                        </p>
-                    ) : (
-                        ""
-                    )}
+                    {windDisplay}
                 </div>
             </div>
         </>
