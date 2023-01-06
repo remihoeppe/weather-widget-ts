@@ -22,9 +22,8 @@ const WeatherWidget = ({
     tempUnit,
     isWindOn,
 }: WeatherWidgetProps) => {
-    const weatherIconUrl = `http://openweathermap.org/img/wn/${
-        weatherData?.weather?.at(0).icon
-    }@2x.png`;
+    const weatherIcon = weatherData?.weather?.at(0).icon;
+    const weatherIconUrl = `http://openweathermap.org/img/wn/${weatherIcon}@2x.png`;
 
     const tempValue =
         tempUnit === Temp.Celius
@@ -34,20 +33,18 @@ const WeatherWidget = ({
     const unitSystem =
         weatherData?.main?.temp !== undefined ? `°${tempUnit}` : "";
 
-    const windDisplay = isWindOn ? (
+    const windDisplay = isWindOn && (
         <p>
             <span>Wind</span>
             {`\v${degToCompass(weatherData?.wind?.deg)} ${mpsToKph(
                 weatherData?.wind?.speed,
             )}km/h`}
         </p>
-    ) : (
-        ""
     );
 
     return (
         <>
-            <h2>{widgetTitle ? widgetTitle : "Widget Title"}</h2>
+            <h2>{widgetTitle || "Widget Title"}</h2>
             <div>
                 <img src={weatherIconUrl} alt="" />
                 <div className="weather-info">

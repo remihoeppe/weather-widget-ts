@@ -29,38 +29,18 @@ const WeatherPage = () => {
         (state: any) => state.windChange.value,
     );
 
-    const [titleInput, setTitleInput] = useState("Widget Title");
-    const [tempUnit, setTempUnit] = useState(currentTemp);
-    const [isWindDisplayed, setIsWindDisplayed] = useState(true);
-
     // Handling logic for WeatherEditor
 
-    const handleInputChange = (e: any) => setTitleInput(e.target.value);
+    const handleInputChange = (e: any) =>
+        dispatch(changeTitleText(e.target.value));
+
     const handleChangeTempUnit = (e: any) => {
-        setTempUnit(e.target.value);
+        dispatch(changeTemp(e.target.value));
     };
+
     const handleWindDisplayChange = (e: any) => {
-        console.log("handleWindDisplay Has been called");
-        setIsWindDisplayed(e.target.value === "On" ? true : false);
+        dispatch(switchWindDisplay(e.target.value === "On" ? true : false));
     };
-
-    useEffect(() => {
-        dispatch(changeTitleText(titleInput));
-    }, [titleInput]);
-
-    useEffect(() => {
-        dispatch(changeTemp(tempUnit));
-    }, [tempUnit]);
-
-    useEffect(() => {
-        dispatch(switchWindDisplay(isWindDisplayed));
-    }, [isWindDisplayed]);
-
-    useEffect(() => {
-        setTempUnit(currentTemp);
-        setIsWindDisplayed(currentWindDisplay);
-        setTitleInput(currentWidgetTitle);
-    }, []);
 
     // Handling logic required for the WeatherWidget
 
@@ -93,7 +73,7 @@ const WeatherPage = () => {
                     onTempUnitChange={handleChangeTempUnit}
                     onWindDisplayChange={handleWindDisplayChange}
                     tempUnit={currentTemp}
-                    isWindOn={isWindDisplayed}
+                    isWindOn={currentWindDisplay}
                 />
             </StyledEditor>
             <Separator
@@ -104,7 +84,7 @@ const WeatherPage = () => {
             <StyledWidget>
                 <WeatherWidget
                     weatherData={currentWeather}
-                    isWindOn={isWindDisplayed}
+                    isWindOn={currentWindDisplay}
                     tempUnit={currentTemp}
                     widgetTitle={currentWidgetTitle}
                     location={userLocation}

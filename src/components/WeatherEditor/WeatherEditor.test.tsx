@@ -2,10 +2,11 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { vi } from "vitest";
 import userEvent from "@testing-library/user-event";
 import WeatherEditor from "./WeatherEditor";
+import { Temp } from "src/services/tempUtils";
 
 const mockProps: any = {
-    tempUnit1: "F",
-    tempUnit2: "C",
+    tempUnit1: Temp.Fahrenheit,
+    tempUnit2: Temp.Celius,
     widgetTitle: "Sydney",
     windOn: true,
     onTitleChange: vi.fn((e: any) => (mockProps.widgetTitle = e.target.value)),

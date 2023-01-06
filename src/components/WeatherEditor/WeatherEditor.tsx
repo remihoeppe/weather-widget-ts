@@ -1,11 +1,12 @@
 import { Temp } from "./../../services/tempUtils";
 import { StyledInputText } from "../styles/StyledInput";
 import { StyledRadio } from "../styles/StyledRadio";
+import { ChangeEvent, MouseEventHandler } from "react";
 
 interface WeatherEditorProps {
-    onTitleChange: (e: any) => void;
-    onTempUnitChange: (e: any) => void;
-    onWindDisplayChange: (e: any) => void;
+    onTitleChange: (e: ChangeEvent<HTMLInputElement>) => void;
+    onTempUnitChange: MouseEventHandler<HTMLInputElement>;
+    onWindDisplayChange: MouseEventHandler<HTMLInputElement>;
     tempUnit: string;
     isWindOn: boolean;
 }
@@ -17,9 +18,13 @@ const WeatherEditor = ({
     tempUnit,
     isWindOn,
 }: WeatherEditorProps) => {
-    // Add error handling for empty string or undefined Widget Title using the error prop of the TextField component
-    const error = false;
-    const errorMessage = "Please enter a Title for your widget";
+    const handleTempUnitChange = (e: any) => {
+        if (tempUnit === Temp.Fahrenheit) e.target.checked = true;
+    };
+
+    const handleWindDisplayChange = (e: any) => {
+        if (isWindOn) e.target.checked = true;
+    };
 
     return (
         <form>
@@ -40,13 +45,9 @@ const WeatherEditor = ({
                     <input
                         type="radio"
                         id="tempC"
-                        value="C"
+                        value={Temp.Celius}
                         checked={tempUnit === Temp.Celius}
-                        onChange={(e) =>
-                            tempUnit === Temp.Fahrenheit
-                                ? (e.target.checked = true)
-                                : false
-                        }
+                        onChange={handleTempUnitChange}
                         onClick={onTempUnitChange}
                     />
                     °C
@@ -56,13 +57,9 @@ const WeatherEditor = ({
                     <input
                         type="radio"
                         id="tempF"
-                        value="F"
+                        value={Temp.Fahrenheit}
                         checked={tempUnit === Temp.Fahrenheit}
-                        onChange={(e) =>
-                            tempUnit === Temp.Celius
-                                ? (e.target.checked = true)
-                                : false
-                        }
+                        onChange={handleTempUnitChange}
                         onClick={onTempUnitChange}
                     />
                     °F
@@ -78,9 +75,7 @@ const WeatherEditor = ({
                         value="On"
                         id="windOn"
                         checked={isWindOn}
-                        onChange={(e) =>
-                            isWindOn ? (e.target.checked = true) : false
-                        }
+                        onChange={handleWindDisplayChange}
                         onClick={onWindDisplayChange}
                     />
                     On
@@ -91,9 +86,7 @@ const WeatherEditor = ({
                         value="Off"
                         id="windOff"
                         checked={!isWindOn}
-                        onChange={(e) =>
-                            isWindOn ? (e.target.checked = true) : false
-                        }
+                        onChange={handleWindDisplayChange}
                         onClick={onWindDisplayChange}
                     />
                     Off
